@@ -1,7 +1,7 @@
 <template>
     <div class="w-full mt-16">
         <div class="w-full bg-white shadow-md rounded p-10 relative">
-            <!-- modal cancel -->
+
             <div class="absolute top-1 right-1 p-2 cursor-pointer" @click="$emit('close')">
                 <span>
                     <i class="fa fa-times text-red-500"></i>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- upload pdf  -->
+
                 <div class="w-full mt-10" v-if="resource.type == 'pdf'">
                     <div class="w-full flex justify-between items-center">
                         <div class="w-1/2">
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- description -->
+
                 <div class="w-full mt-10">
                     <div class="w-full flex justify-between items-center">
                         <div class="w-1/2">
@@ -62,7 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- Html snipet -->
+
                 <div class="w-full mt-10" v-if="resource.type == 'html'">
                     <div class="w-full flex justify-between items-center">
                         <div class="w-1/2">
@@ -85,7 +85,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- checkbox -->
+
                 <div class="w-full mt-10" v-if="resource.type == 'url'">
                     <div class="w-full flex justify-start items-start ">
                         <div class="w-1/2">
@@ -97,7 +97,7 @@
                         </div>
                     </div>
                 </div>
-                <!-- button -->
+
                 <div class="w-full mt-10">
                     <div class="w-full flex justify-between items-center">
                         <div class="w-1/2">
@@ -141,13 +141,14 @@
         data() {
             return {
                 resource: {
-                    id: this.Editresource.id,
-                    title: this.Editresource.title,
-                    type: this.Editresource.type,
-                    description: this.Editresource.description,
-                    html: this.Editresource.html,
-                    url: this.Editresource.url,
-                    new_tab: this.Editresource.new_tab
+                    id: this.edit?this.Editresource.id:'' ,
+                    title: this.edit?this.Editresource.title:'',
+                    type: this.edit?this.Editresource.type:'',
+                    pdf: this.edit?this.Editresource.pdf:'',
+                    description: this.edit?this.Editresource.description:'',
+                    html: this.edit?this.Editresource.html:'',
+                    url: this.edit?this.Editresource.url:'',
+                    new_tab: this.edit?this.Editresource.new_tab:false
                 }
             }
         },

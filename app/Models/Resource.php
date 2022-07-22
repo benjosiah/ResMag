@@ -18,4 +18,6 @@ class Resource extends Model
         'html',
         'new_tab',
     ];
+
+    
 }

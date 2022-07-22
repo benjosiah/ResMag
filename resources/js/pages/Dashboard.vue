@@ -36,7 +36,6 @@
                 </button>
             </div>
 
-            <!-- Add resource -->
             <add-resource v-if="addModal" class="fixed lg:w-1/3 md:1/2 w-full top-0 left-0 right-0 m-auto border-t fadeIn"
                 @close="closeAddModal"
                 @save="addResource"
@@ -62,7 +61,7 @@
                     </select>
                 </div>
             </div>
-            <!-- Table -->
+
             <div class="w-full mt-16 m-auto">
                 <div class="w-full bg-white shadow-lg rounded p-10">
                     <div class="w-full">
@@ -108,7 +107,6 @@
                     </div>
                    </div> 
             </div>
-            
 
         </div>
     </div>
@@ -140,7 +138,7 @@
         },
         data() {
             return {
-                resource: {},
+                resource:null,
                 addModal: false,
                 edit:false,
                 resource_types:{
@@ -169,21 +167,24 @@
             addResource(resource){
                 this.$inertia.post('/resources', resource, {
                     onSuccess: () => {
-                        this.addModal = false
-                        this.resource = null
+                        this.emptyResource()
                         this.toast("Resource added succefully")
+                    },
+                    onError: (error) => {
+                        this.emptyResource()
+                        this.toast(error.error, 'error')
                     }
                 })  
             },
             editResource(resource){
-                console.log(resource)
                 this.$inertia.post('/resources/'+resource.id, resource, {
                     onSuccess: () => {
-                        this.addModal = false
-                        this.resource = null
+                        this.emptyResource()
                         this.toast("Resource edited succefully")
-
-
+                    },
+                    onError: (error) => {
+                        this.emptyResource()
+                        this.toast(error.error, 'error')
                     }
                 })  
             },
@@ -195,7 +196,6 @@
                 window.open(url, is_blank ? '_blank' : '_self')
             },
             download(url){
-                console.log(url)
                 window.open(url, '_blank')
             },
             showedit(resource){
@@ -210,6 +210,11 @@
                     onSuccess: () => {
                         this.openDelete = false
                         this.toast("Resource deleted succefully")
+                    },
+
+                    onError: (error) => {
+                        this.openDelete = false
+                        this.toast(error.error, 'error')
                     }
                 })
             },
@@ -221,7 +226,7 @@
                 this.openDelete = true
                 this.resourceToDelete = resource
             },
-            toast(text, type){
+            toast(text, type='success'){
                 this.message.text = text
                 this.message.open = true
                 this.message.type = type
@@ -230,8 +235,12 @@
                 }, 3000)
             },
             filterResource(){
-                console.log(this.sort)
                 this.$inertia.replace(`/admin?filter=${this.sort}`)
+            },
+            emptyResource(){
+                this.resource = null
+                this.addModal = false
+                this.edit = false
             }
               
         }
