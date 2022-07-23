@@ -85,7 +85,7 @@
                                     <td class="text-left p-2">{{ resource_types[resource.type]}}</td>
                                     <td class="text-left p-2">{{ resource.description }}</td>
                                     <td class="text-left p-2">
-                                        <button @click="openUrl(resource.url, resource.new_tab)" v-if="resource.type=='url'" class="p-2 bg-white  text-black rounded font-semibold mx-1 hover:bg-gray-100">
+                                        <button @click="openUrl(resource.url, resource.new_tab)" v-if="resource.type=='url'" class="p-2 bg-gray-100 text-black rounded font-semibold mx-1 hover:bg-gray-200">
                                             <i class="fas fa-link"></i>
                                         </button>
                                         <button @click="download(resource.pdf)" v-if="resource.type=='pdf'" class="p-2 bg-gray-100 text-black rounded font-semibold mx-1 hover:bg-gray-100">
@@ -171,8 +171,11 @@
                         this.toast("Resource added succefully")
                     },
                     onError: (error) => {
-                        this.emptyResource()
-                        this.toast(error.error, 'error')
+                        if(error.error){
+                            this.emptyResource()
+                            this.toast(error.error, 'error')
+                        }
+      
                     }
                 })  
             },
@@ -183,18 +186,20 @@
                         this.toast("Resource edited succefully")
                     },
                     onError: (error) => {
-                        this.emptyResource()
-                        this.toast(error.error, 'error')
+                        if(error.error){
+                            this.emptyResource()
+                            this.toast(error.error, 'error')
+                        }
                     }
                 })  
             },
             copyToClipboard(text) {
-                var dummy = document.createElement("textarea");
-                document.body.appendChild(dummy);
-                dummy.value = `${text}`;
-                dummy.select();
+                var dumptext = document.createElement("textarea");
+                document.body.appendChild(dumptext);
+                dumptext.value = `${text}`;
+                dumptext.select();
                 document.execCommand("copy");
-                document.body.removeChild(dummy);
+                document.body.removeChild(dumptext);
                 this.toast(`${text} copied to clipboard`)
             },
             openUrl(url, is_blank){

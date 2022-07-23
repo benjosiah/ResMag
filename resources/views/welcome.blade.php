@@ -42,15 +42,11 @@
                         </p>
                     </div>
                     @if ($resource->type == 'url')
-                        <div  class="text-center text-gray-100 bg-gray-900 w-full p-2 mt-1 font-mono relative ">
-                            @if($resource->new_tab)
-                                <a href="{{$resource->url}}" target="_blank">{{$resource->url}}</a>
-                            @else
-                            <a href="{{$resource->url}}">
-                                {{$resource->url}}
-                            </a>
-                            @endif
-                            <button class=" absolute bg-transparent text-white p-1 rounded-full right-1 top-1">
+                        <div onclick="openUrl(`{{$resource->url}}`, `{{$resource->new_tab}}`)"  class="text-center cursor-pointer text-gray-100 bg-gray-900 w-full p-2 mt-1 font-mono relative">
+                            <span>
+                                {{substr($resource->url,0, 20)}}..
+                            </span>
+                            <button class=" absolute bg-transparent text-white p-1 rounded-full right-1">
                                 <i class="fas fa-link"></i>
                             </button>
                         </div>
@@ -60,17 +56,21 @@
                             <span class="cursor-pointer"  onclick="copyToClipboard(`{{$resource->html}}`)" >
                                 {{$resource->html}}
                             </span>
-                            <button class=" absolute bg-transparent text-white p-1 rounded-full right-1" >
+                            <button onclick="copyToClipboard(`{{$resource->html}}`)"  class=" absolute bg-transparent text-white p-1 rounded-full right-1" >
                                 <i class="fas fa-copy"></i>
                             </button>
                         </div>
                     @endif
                     @if ($resource->type == 'pdf')
                         <div  class="text-center text-gray-100 bg-gray-900 w-full p-2 mt-1 font-mono relative">
-                            <a href="{{$resource->pdf}}" download>{{$resource->pdf}}</a>
-                            <button class=" absolute bg-transparent text-white p-1 rounded-full right-1">
-                                <i class="fas fa-download"></i>
-                            </button>
+                            <a href="{{$resource->pdf}}" download>
+                                <span class="w-28 h-10">
+                                    PDF<i class="fa-regular fa-file-pdf"></i>
+                                </span>
+                                <button class=" absolute bg-transparent text-white p-1 rounded-full right-1">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </a>
                         </div>
                     @endif
 

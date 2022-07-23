@@ -25,12 +25,12 @@
 
         function copyToClipboard(text) {
             console.log(text);
-            var dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = `${text}`;
-            dummy.select();
+            var dumptext = document.createElement("textarea");
+            document.body.appendChild(dumptext);
+            dumptext.value = `${text}`;
+            dumptext.select();
             document.execCommand("copy");
-            document.body.removeChild(dummy);
+            document.body.removeChild(dumptext);
             alert("Copied the text: " + text);
         }
         var filter = document.getElementById('filter').value
@@ -40,6 +40,9 @@
             }else{
                 window.location.href = `/?filter=${type}`       
             }
+        }
+        function openUrl(url, is_blank){
+            window.open(url, is_blank ? '_blank' : '_self')
         }
     </script>
 </body>
