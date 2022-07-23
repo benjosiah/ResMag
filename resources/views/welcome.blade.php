@@ -62,8 +62,18 @@
                         </div>
                     @endif
                     @if ($resource->type == 'pdf')
+                        @php
+                            $pdf = $resource->pdf;
+                            $pdf_name = explode('/', $pdf);
+                            $pdf_name = end($pdf_name);
+                            if(strpos($resource->pdf, 'http') !== false){
+                                $data = file_get_contents($resource->pdf);
+                                $base64 = base64_encode($data);
+                                $pdf = 'data:application/pdf;base64,'.$base64;
+                            }
+                        @endphp
                         <div  class="text-center text-gray-100 bg-gray-900 w-full p-2 mt-1 font-mono relative">
-                            <a href="{{$resource->pdf}}" download>
+                            <a href="{{$pdf}}" download="{{$pdf_name}}">
                                 <span class="w-28 h-10">
                                     PDF<i class="fa-regular fa-file-pdf"></i>
                                 </span>
