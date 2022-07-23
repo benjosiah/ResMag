@@ -13,9 +13,9 @@
     <header class="w-full h-32 bg-white shadow-md pt-10">
         <div class="container mx-auto flex justify-between items-center">
             <div class="flex items-center">
-                <router-link to="/" class="text-2xl font-bold text-gray-800">
+                <a href="/" class="text-2xl font-bold text-gray-800">
                     Rosource Managemer
-                </router-link>
+                </a>
             </div>
         </div>
     </header>
@@ -24,9 +24,10 @@
     <script>
 
         function copyToClipboard(text) {
+            console.log(text);
             var dummy = document.createElement("textarea");
             document.body.appendChild(dummy);
-            dummy.value = text;
+            dummy.value = `${text}`;
             dummy.select();
             document.execCommand("copy");
             document.body.removeChild(dummy);

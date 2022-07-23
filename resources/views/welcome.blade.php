@@ -57,7 +57,7 @@
                     @endif
                     @if ($resource->type == 'html')
                         <div class="text-center text-gray-100 bg-gray-900 w-full p-2 mt-1 font-mono relative">
-                            <span class="cursor-pointer"  onclick="copyToClipboard('{{$resource->html}}')" >
+                            <span class="cursor-pointer"  onclick="copyToClipboard(`{{$resource->html}}`)" >
                                 {{$resource->html}}
                             </span>
                             <button class=" absolute bg-transparent text-white p-1 rounded-full right-1" >

@@ -8,7 +8,7 @@
                     </router-link>
                 </div>
                 <div class="flex items-center">
-                    <router-link to="/profile" class="text-2xl font-bold text-gray-800">
+                    <router-link to="" class="text-2xl font-bold text-gray-800">
                         Admin
                     </router-link>
                 </div>
@@ -189,7 +189,12 @@
                 })  
             },
             copyToClipboard(text) {
-                navigator.clipboard.writeText(text);
+                var dummy = document.createElement("textarea");
+                document.body.appendChild(dummy);
+                dummy.value = `${text}`;
+                dummy.select();
+                document.execCommand("copy");
+                document.body.removeChild(dummy);
                 this.toast(`${text} copied to clipboard`)
             },
             openUrl(url, is_blank){
