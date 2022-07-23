@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Resource;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 
 class ResourceController extends Controller
 {
@@ -69,10 +70,10 @@ class ResourceController extends Controller
     }
 
     public function uploadfile($file){
-        $pdf = $file;
-        $pdfName = "pdf/".time() . '.' . $pdf->getClientOriginalExtension();
-        Storage::disk('public')->put($pdfName, File::get($pdf));
-        return Storage::url($pdfName);
+        cloudinary()->admin();
+        $path = $file->storeOnCloudinary('resources');
+        $url = $path->getPath();
+        return $url;
     }
 
 }
